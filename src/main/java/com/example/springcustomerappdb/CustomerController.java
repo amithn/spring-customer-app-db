@@ -21,4 +21,9 @@ public class CustomerController {
         customerRepository.save(customer);
         return new Result( customer.getName(), "OK");
     }
+
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
+    public Iterable<Customer> getAll() {
+        return customerRepository.findAll();
+    }
 }
