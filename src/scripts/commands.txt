@@ -1,0 +1,25 @@
+# First we need to create a database service called postgres
+cf create-service elephantsql turtle postgres
+
+# Got to the management page and execute the following queries. This is normally done via a changelog using a
+# framework like Flyway or Liquibase.
+
+CREATE TABLE customer(id int, name varchar(128));
+CREATE SEQUENCE customer_id_seq START 1;
+
+# Push the app - do not start it
+./gradlew clean build -x test;
+cf push {your-name}-customer-app-db --no-start
+Example: cf push anambiar-customer-app-db --no-start
+
+# let us bind the Postgres service to the app we just pushed.
+cf bind-service {your-name}-customer-app-db postgres
+
+Example: cf bind-service anambiar-customer-app-db postgres
+
+Finally, start the app
+
+cf start {your-name}-customer-app-db
+Example: cf start anambiar-customer-app-db
+
+

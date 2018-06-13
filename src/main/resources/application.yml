@@ -1,0 +1,17 @@
+spring:
+   profiles: dev
+   datasource:
+        platform: postgres
+        url: jdbc:postgresql://localhost:5432/hotelsdb
+        username: postgres
+        password: postgres
+
+---
+
+spring:
+   profiles: cloud
+   datasource:
+        url: ${vcap.services.postgres.credentials.uri}
+
+
+
